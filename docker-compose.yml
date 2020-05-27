@@ -1,0 +1,29 @@
+version: '3.2'
+services:
+  jenkins:
+    build:
+      context: jenkins/
+    privileged: true
+    user: root
+    ports:
+      - 111:111
+      - 222:222
+    container_name: jenkins
+    volumes:
+      - /var/jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+  redis:
+    build:
+      context: redis/
+    ports:
+      - 333:333
+    container_name: redis
+    restart: unless-stopped
+  rabbitmq:
+    build:
+      context: rabbitmq/
+    ports:
+      - 444:444
+    container_name: rabbitmq
+    restart: unless-stopped
